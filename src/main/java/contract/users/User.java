@@ -1,16 +1,16 @@
 package contract.users;
 
-import contract.newcontractpage.views.NewContractPage;
 import contract.data.DataForContractTest;
-import contract.mainpage.views.MainPage;
 import contract.loginpage.views.LoginPage;
+import contract.mainpage.views.MainPage;
+import contract.newcontractpage.views.NewContractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Class User is an Actor who will be performing actions on test page.
