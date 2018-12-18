@@ -10,6 +10,7 @@ public class NewContractPageLocators {
     private By saleOdomLocator;				    //field which represents sale odometer
     private By vinLocator;                      //field which represents vin
     private By financeTypeLocator;		        //field which represents finance type
+    private By financeTypeLoanLocator;
     private By amountFinancedLocator;		    //field which represents amount financed
     private By financeTermLocator;     		    //field which represents finance term
     private By lenderNumberLocator;     		//field which represents lender number
@@ -36,12 +37,13 @@ public class NewContractPageLocators {
         this.driver = driver;
 
         //locators which help in finding fields to type into
-        saleOdomLocator = new By.ByXPath("//*[@id=\"txtSaleOdom_db3aa445-8bdf-42d0-b80b-e7190e451926\"]/div/input");
-        vinLocator = new By.ByXPath("//*[@id=\"txtVin_db3aa445-8bdf-42d0-b80b-e7190e451926\"]/div/input");
-        financeTypeLocator = new By.ByXPath("//*[@id=\"9e8861db-c737-d726-af32-7229e5455c5d\"]/div/text()");
-        amountFinancedLocator = new By.ByXPath("//*[@id=\"txtAmountFinanced_30a89ab1-8a0a-4285-b516-e2b7ee87ea93\"]/div/input");
-        financeTermLocator = new By.ByXPath("//*[@id=\"txtFinanceLeaseTerm_30a89ab1-8a0a-4285-b516-e2b7ee87ea93\"]/div/input");
-        lenderNumberLocator = new By.ByXPath("//*[@id=\"txtSearchLenderNumber_257bdd10-b384-49e3-bb5e-e1cc7b6d99e1\"]/div/div/input");
+        saleOdomLocator = new By.ByXPath("(//input[@type='text'])[2]");
+        vinLocator = new By.ByXPath("(//input[@type='text'])[4]");
+        financeTypeLocator = new By.ByXPath("//div[3]/div/div[2]/form/div/div/div/div/div/div[2]/div/div");
+        financeTypeLoanLocator = new By.ByXPath("//*[@id=\"3b96c431-5926-d495-a675-d1a9c79dbe6d\"]/div");
+        amountFinancedLocator = new By.ByXPath("(//input[@type='text'])[16]");
+        financeTermLocator = new By.ByXPath("(//input[@type='text'])[17]");
+        lenderNumberLocator = new By.ByXPath("(//input[@type='text'])[21]");
 
         //locators which help in retrieving values from fields
         saleOdomValueLocator = new By.ByXPath("//*[@id=\"formAddContract\"]/div[2]/div[2]");
@@ -89,6 +91,12 @@ public class NewContractPageLocators {
      * @return financeTypeLocator
      */
     public WebElement financeType() { return driver.findElement(financeTypeLocator); }
+
+    /**
+     * Finding loan as finance type.
+     * @return financeTypeLoanLocator
+     */
+    public WebElement financeTypeLoan() { return driver.findElement(financeTypeLoanLocator); }
 
     /**
      * Finding selected finance type.

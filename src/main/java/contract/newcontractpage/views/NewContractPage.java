@@ -4,11 +4,14 @@ import contract.data.DataForContractTest;
 import contract.newcontractpage.locators.NewContractPageLocators;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class NewContractPage {
 
     private WebDriver driver;
     private NewContractPageLocators newContractPageLocators;      //here are stored all needed elements for performing actions on new contract page
+    private Actions actions;
+
 
     /**
      * Constructor.
@@ -17,7 +20,8 @@ public class NewContractPage {
     public NewContractPage(WebDriver driver) {
 
         this.driver = driver;
-        newContractPageLocators = new NewContractPageLocators(driver); }
+        newContractPageLocators = new NewContractPageLocators(driver);
+        actions = new Actions(driver);}
 
     /**
      * Adding items to new contract page.
@@ -28,7 +32,7 @@ public class NewContractPage {
     */
     public void fillSaleOdomField() {
 
-        newContractPageLocators.saleOdom().click();                     //TODO check if this is necessary
+        newContractPageLocators.saleOdom().click();
         newContractPageLocators.saleOdom().sendKeys(Keys.DELETE);
         newContractPageLocators.saleOdom().sendKeys(DataForContractTest.getSaleOdom());
     }
@@ -48,7 +52,10 @@ public class NewContractPage {
     public void fillFinanceTypeField() {
 
         newContractPageLocators.financeType().click();
-        newContractPageLocators.financeType().sendKeys(DataForContractTest.getFinanceType());
+        newContractPageLocators.financeType().click();
+//        actions.moveToElement(newContractPageLocators.financeType()).sendKeys(DataForContractTest.getFinanceType());
+//        actions.moveToElement(newContractPageLocators.financeType()).sendKeys(Keys.ENTER);
+//        actions.moveToElement(newContractPageLocators.financeTypeLoan()).click(); //.sendKeys(newContractPageLocators.financeType(), DataForContractTest.getFinanceType());
     }
 
     /**
@@ -77,6 +84,7 @@ public class NewContractPage {
 
         newContractPageLocators.lenderNumber().click();
         newContractPageLocators.lenderNumber().sendKeys(DataForContractTest.getLenderNumber());
+        newContractPageLocators.lenderNumber().sendKeys(Keys.ENTER);
     }
 
     /**

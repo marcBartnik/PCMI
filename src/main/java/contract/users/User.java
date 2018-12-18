@@ -7,6 +7,8 @@ import contract.loginpage.views.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,8 +21,6 @@ public class User {
     private WebDriver driver;
     private final String chromeDriverPath = new File("src/main/resources/chromedriver.exe").getAbsolutePath();
     private LoginPage loginPage;
-    private String alertMessage = DataForContractTest.getAlertMessage();
-    private String loggedUserName = DataForContractTest.getLoggedUserName();
     private MainPage mainPage;
     private NewContractPage newContractPage;
 
@@ -61,7 +61,10 @@ public class User {
      */
     public void checkDisplayedMessageAndAcceptIt() {
 
-        assertEquals(loginPage.getAlert(), alertMessage);
+        boolean isAlertPresent = false;
+        while (!isAlertPresent)
+            if (!loginPage.getAlert().equals(DataForContractTest.getAlertMessage())) {}
+            else if (loginPage.getAlert().equals(DataForContractTest.getAlertMessage())) isAlertPresent = true;
         loginPage.clickOk();
     }
 
@@ -80,7 +83,18 @@ public class User {
      */
     public void checkIfYouWereAbleToLoginCorrectly() {
 
-        assertEquals(mainPage.getLoggedUserName(), loggedUserName);  //TODO start running test from checking this
+        boolean isUserPageVisible = false;
+        while (!isUserPageVisible) {
+            try {
+                mainPage.getLoggedUserName();
+            }
+            catch (org.openqa.selenium.NoSuchElementException e) {
+                continue;
+            }
+            if (mainPage.getLoggedUserName().equals(DataForContractTest.getLoggedUserName())) {
+                isUserPageVisible = true;
+            }
+        }
     }
 
     /**
@@ -89,9 +103,13 @@ public class User {
     public void openAddContract() { mainPage.openNewContract(); }
 
     /**
-     * Checking if new contract page is open.
+     * Checking if new contract tab is open.
      */
-    public void checkIfAddContractWasDisplayed() { assertEquals(newContractPage.getNewContractPageTitle(), DataForContractTest.getAddContractPageTitle()); }
+    public void checkIfAddContractWasDisplayed() {
+
+        List<String> browserTabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(browserTabs .get(1));
+        assertEquals(DataForContractTest.getAddContractPageTitle(), newContractPage.getNewContractPageTitle()); }
 
     /**
      * Filling fields with data.
@@ -111,13 +129,13 @@ public class User {
      */
     public void checkIfFieldsWereCorrectlyFilled() {
 
-        assertEquals(newContractPage.getSaleOdomValue(), DataForContractTest.getSaleOdom());
-        assertEquals(newContractPage.getVinValue(), DataForContractTest.getVin());
-        assertEquals(newContractPage.getFinanceTypeSelected(), DataForContractTest.getFinanceType());
-        assertEquals(newContractPage.getAmountFinancedValue(), DataForContractTest.getAmountFinanced());
-        assertEquals(newContractPage.getFinanceTermValue(), DataForContractTest.getFinanceTerm());
-        assertEquals(newContractPage.getLenderNumberValue(), DataForContractTest.getLenderNumber());
-        assertEquals(newContractPage.getCurrencySignFromAmountField(), DataForContractTest.getReferencedCurrencySign());
+        assertEquals(DataForContractTest.getSaleOdom(), newContractPage.getSaleOdomValue());
+        assertEquals(DataForContractTest.getVin(), newContractPage.getVinValue());
+        assertEquals(DataForContractTest.getFinanceType(), newContractPage.getFinanceTypeSelected());
+        assertEquals(DataForContractTest.getAmountFinanced(), newContractPage.getAmountFinancedValue());
+        assertEquals(DataForContractTest.getFinanceTerm(), newContractPage.getFinanceTermValue());
+        assertEquals(DataForContractTest.getLenderNumber(), newContractPage.getLenderNumberValue());
+        assertEquals(DataForContractTest.getReferencedCurrencySign(), newContractPage.getCurrencySignFromAmountField());
     }
 
     /**
@@ -125,9 +143,9 @@ public class User {
      */
     public void checkIfYearMakeAndModelWereDecodedCorrectly() {
 
-        assertEquals(newContractPage.getYearValue(), DataForContractTest.getYear());
-        assertEquals(newContractPage.getMakeValue(), DataForContractTest.getMake());
-        assertEquals(newContractPage.getModelValue(), DataForContractTest.getModel());
+        assertEquals(DataForContractTest.getYear(), newContractPage.getYearValue());
+        assertEquals(DataForContractTest.getMake(), newContractPage.getMakeValue());
+        assertEquals(DataForContractTest.getModel(), newContractPage.getModelValue());
     }
 
     /**

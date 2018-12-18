@@ -21,7 +21,7 @@ public class MainPageLocators {
     public MainPageLocators(WebDriver driver){
 
         this.driver = driver;
-        loggedUserLocator = new By.ByXPath("ucTopBar_ASPxRoundPanel2_ucLogin_cbLogin_pnl_lnkUserName");
+        loggedUserLocator = new By.ByXPath("//*[@id=\"ucTopBar_ASPxRoundPanel2_ucLogin_cbLogin_pnl_lnkUserName\"]");
         addContractLocator = new By.ByXPath("//*[@id=\"navMenu_ITC0i0_ctl00_0_tbMenu_0\"]/tbody/tr[1]/td[2]/a");
         logoutButtonLocator = new By.ByXPath("//*[@id=\"ucTopBar_ASPxRoundPanel2_ucLogin_cbLogin_pnl_btnLogout_CD\"]/span");
     }
